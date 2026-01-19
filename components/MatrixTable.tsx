@@ -4,7 +4,7 @@ import { ProductVariant } from '../types';
 import { 
   Download, Printer, Filter, Palette, Layers, Search, X, 
   CheckSquare, Square, ChevronDown, Monitor, Scissors, Settings2, 
-  Cpu, Hash, Ruler, Tag, FileText 
+  Cpu, Hash, Ruler, Tag, FileText, Box, HardDrive
 } from 'lucide-react';
 
 interface MatrixTableProps {
@@ -178,15 +178,15 @@ const MatrixTable: React.FC<MatrixTableProps> = ({ variants }) => {
       {/* Modern Table Container */}
       <div className="bg-white rounded-[2.5rem] shadow-sm border border-slate-200 overflow-hidden print-container">
         <div className="overflow-x-auto custom-scrollbar">
-          <table className="w-full text-left border-collapse min-w-[1200px]">
+          <table className="w-full text-left border-collapse min-w-[1400px]">
             <thead>
               <tr className="bg-slate-50/80 border-b border-slate-200">
-                <th className="pl-8 pr-4 py-6 w-[100px] text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">OP Step</th>
-                <th className="px-4 py-6 w-[120px] text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Color</th>
+                <th className="pl-8 pr-4 py-6 w-[80px] text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">OP</th>
+                <th className="px-4 py-6 w-[100px] text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Color</th>
                 <th className="px-4 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Process Description</th>
-                <th className="px-4 py-6 w-[200px] text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Production Details</th>
-                <th className="px-4 py-6 w-[280px] text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Tech Specifications</th>
-                <th className="pr-8 pl-4 py-6 w-[220px] text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Garment Sizes</th>
+                <th className="px-4 py-6 w-[400px] text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Production Details</th>
+                <th className="px-4 py-6 w-[320px] text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Tech Specifications</th>
+                <th className="pr-8 pl-4 py-6 w-[200px] text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Sizes</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -206,86 +206,95 @@ const MatrixTable: React.FC<MatrixTableProps> = ({ variants }) => {
 
                 return rowsForStt.map((row, rowIdx) => (
                   <tr key={`${stt}-${row.v.id}-${rowIdx}`} className={`group hover:bg-slate-50/50 transition-colors ${rowIdx === 0 && sttIdx !== 0 ? 'border-t-2 border-slate-100' : ''}`}>
-                    {/* OP Number - Primary */}
+                    {/* OP Number */}
                     <td className="pl-8 pr-4 py-6 align-top">
                       {rowIdx === 0 ? (
                         <div className="flex flex-col">
-                          <span className="text-xl font-black text-slate-900">{stt}</span>
-                          <span className="text-[10px] font-bold text-slate-400 uppercase mt-1">ID-{row.cfg.variantId}</span>
+                          <span className="text-xl font-black text-slate-900 leading-none">{stt}</span>
+                          <span className="text-[9px] font-bold text-slate-400 uppercase mt-1 tracking-tighter">VAR {row.cfg.variantId}</span>
                         </div>
                       ) : (
-                        <div className="w-1.5 h-1.5 rounded-full bg-slate-200 ml-3"></div>
+                        <div className="w-1 h-4 bg-slate-100 rounded-full ml-2"></div>
                       )}
                     </td>
 
-                    {/* Color Code - Primary */}
+                    {/* Color Code */}
                     <td className="px-4 py-6 align-top">
                       <div className="inline-flex items-center px-3 py-1 bg-slate-900 text-white rounded-lg text-xs font-black shadow-sm">
                         {row.v.color}
                       </div>
                     </td>
 
-                    {/* Description - Primary */}
+                    {/* Description */}
                     <td className="px-4 py-6 align-top">
-                      <div className="flex flex-col gap-1 max-w-md">
-                        <h4 className="text-sm font-bold text-slate-800 uppercase tracking-tight leading-tight group-hover:text-blue-600 transition-colors">
+                      <div className="flex flex-col gap-1 pr-4">
+                        <h4 className="text-[13px] font-bold text-slate-800 uppercase tracking-tight leading-tight group-hover:text-blue-600 transition-colors">
                           {row.op.description}
                         </h4>
                         <div className="flex items-center gap-2 mt-2">
-                          <span className="text-[10px] font-bold text-slate-400 uppercase bg-slate-100 px-2 py-0.5 rounded-md flex items-center gap-1">
-                            <Layers size={10} /> {row.op.section}
+                          <span className="text-[9px] font-black text-slate-400 uppercase bg-slate-100 px-2 py-1 rounded-md flex items-center gap-1.5 border border-slate-200/50">
+                            <Layers size={10} className="text-slate-400"/> {row.op.section}
                           </span>
                         </div>
                       </div>
                     </td>
 
-                    {/* Machine & Material - Secondary */}
+                    {/* Production Details - Tăng không gian và bố trí lại */}
                     <td className="px-4 py-6 align-top">
-                      <div className="space-y-3">
-                        <div className="flex items-start gap-2">
-                          <Monitor size={14} className="text-slate-300 mt-0.5" />
-                          <div className="flex flex-col">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">Machine Type</span>
-                            <span className="text-[11px] font-bold text-slate-700">{row.cfg.machine || 'Manual'}</span>
+                      <div className="flex flex-col gap-3">
+                        {/* Machine Section */}
+                        <div className="flex items-center gap-3 p-3 bg-indigo-50/30 rounded-2xl border border-indigo-100/50">
+                          <div className="w-8 h-8 rounded-xl bg-white shadow-sm flex items-center justify-center text-indigo-500">
+                            <Monitor size={16} />
+                          </div>
+                          <div className="flex flex-col min-w-0">
+                            <span className="text-[9px] font-black text-indigo-400 uppercase tracking-widest">Machine Category</span>
+                            <span className="text-[12px] font-bold text-slate-700 truncate">{row.cfg.machine || 'Manual Operation'}</span>
                           </div>
                         </div>
-                        <div className="flex items-start gap-2">
-                          <Settings2 size={14} className="text-slate-300 mt-0.5" />
-                          <div className="flex flex-col">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">Material Unit</span>
-                            <span className="text-[11px] font-bold text-slate-600 line-clamp-2">{row.mat.name}</span>
+
+                        {/* Material Section */}
+                        <div className="flex items-start gap-3 p-3 bg-amber-50/30 rounded-2xl border border-amber-100/50">
+                          <div className="w-8 h-8 rounded-xl bg-white shadow-sm flex items-center justify-center text-amber-500 mt-0.5 shrink-0">
+                            <Box size={16} />
+                          </div>
+                          <div className="flex flex-col min-w-0">
+                            <span className="text-[9px] font-black text-amber-500 uppercase tracking-widest">Material Unit / Code</span>
+                            <span className="text-[11px] font-bold text-slate-700 leading-normal mt-0.5 break-words">
+                              {row.mat.name}
+                            </span>
                           </div>
                         </div>
                       </div>
                     </td>
 
-                    {/* Tech Specs - Detailed */}
+                    {/* Tech Specs */}
                     <td className="px-4 py-6 align-top">
-                      <div className="grid grid-cols-2 gap-x-6 gap-y-3 p-4 bg-slate-50/50 rounded-2xl border border-slate-100/50">
+                      <div className="grid grid-cols-2 gap-3 p-4 bg-slate-50/80 rounded-2xl border border-slate-200/50">
                         <div className="flex flex-col gap-0.5">
-                          <div className="flex items-center gap-1.5 text-[9px] font-black text-slate-400 uppercase"><Scissors size={10}/> Needle</div>
+                          <div className="flex items-center gap-1.5 text-[8px] font-black text-slate-400 uppercase tracking-wider"><Scissors size={10}/> Needle Type</div>
                           <span className="text-[11px] font-bold text-blue-600">{row.cfg.needleType || '-'}</span>
                         </div>
                         <div className="flex flex-col gap-0.5">
-                          <div className="flex items-center gap-1.5 text-[9px] font-black text-slate-400 uppercase"><Hash size={10}/> N.Size</div>
+                          <div className="flex items-center gap-1.5 text-[8px] font-black text-slate-400 uppercase tracking-wider"><Hash size={10}/> N.Size</div>
                           <span className="text-[11px] font-bold text-slate-800">{row.cfg.needleSize || '-'}</span>
                         </div>
-                        <div className="flex flex-col gap-0.5">
-                          <div className="flex items-center gap-1.5 text-[9px] font-black text-slate-400 uppercase"><Ruler size={10}/> Seam</div>
-                          <span className="text-[11px] font-bold text-slate-600 truncate" title={row.cfg.seam}>{row.cfg.seam || '-'}</span>
+                        <div className="flex flex-col gap-0.5 col-span-2 mt-1 pt-2 border-t border-slate-100">
+                          <div className="flex items-center gap-1.5 text-[8px] font-black text-slate-400 uppercase tracking-wider"><Ruler size={10}/> Seam Configuration</div>
+                          <span className="text-[10px] font-semibold text-slate-600 italic leading-snug">{row.cfg.seam || 'Standard'}</span>
                         </div>
-                        <div className="flex flex-col gap-0.5">
-                          <div className="flex items-center gap-1.5 text-[9px] font-black text-slate-400 uppercase"><Settings2 size={10}/> Stitch</div>
-                          <span className="text-[11px] font-bold text-emerald-600">{row.cfg.stitchCm ? `${row.cfg.stitchCm}/cm` : '-'}</span>
+                        <div className="flex items-center justify-between col-span-2 mt-2 px-2 py-1 bg-emerald-50 rounded-lg">
+                           <span className="text-[8px] font-black text-emerald-600 uppercase">Stitch Density</span>
+                           <span className="text-[10px] font-black text-emerald-700">{row.cfg.stitchCm ? `${row.cfg.stitchCm}/cm` : 'N/A'}</span>
                         </div>
                       </div>
                     </td>
 
-                    {/* Sizes - Secondary */}
+                    {/* Sizes */}
                     <td className="pr-8 pl-4 py-6 align-top">
-                      <div className="flex flex-wrap gap-1.5 max-w-[180px]">
+                      <div className="flex flex-wrap gap-1.5 max-w-[150px]">
                         {row.mat.sizes.map((sz, i) => (
-                          <span key={i} className="px-2 py-1 bg-white border border-slate-200 text-slate-600 text-[10px] font-black rounded-lg shadow-sm">
+                          <span key={i} className="px-2 py-1 bg-white border border-slate-200 text-slate-600 text-[10px] font-black rounded-lg shadow-sm hover:border-blue-300 transition-colors cursor-default">
                             {sz}
                           </span>
                         ))}
@@ -307,11 +316,11 @@ const MatrixTable: React.FC<MatrixTableProps> = ({ variants }) => {
             </div>
             <div className="flex items-center gap-2">
               <Layers size={16} className="text-blue-500" />
-              <span className="text-[11px] font-black text-slate-400 uppercase">Process Steps: <span className="text-slate-900 ml-1">{allStts.length}</span></span>
+              <span className="text-[11px] font-black text-slate-400 uppercase">Steps: <span className="text-slate-900 ml-1">{allStts.length}</span></span>
             </div>
           </div>
-          <div className="text-[10px] font-bold text-slate-300 uppercase tracking-[0.3em]">
-            © {new Date().getFullYear()} TIVSewing System
+          <div className="text-[10px] font-bold text-slate-300 uppercase tracking-[0.3em] flex items-center gap-2">
+            <HardDrive size={12}/> TIVSEWING DATA ENGINE V2.0
           </div>
         </div>
       </div>
