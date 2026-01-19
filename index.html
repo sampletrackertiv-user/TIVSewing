@@ -29,13 +29,52 @@
         .table-shadow { box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05); }
         
         @media print {
+            @page {
+                size: landscape;
+                margin: 5mm;
+            }
             .no-print { display: none !important; }
-            body { background: white !important; padding: 0 !important; }
-            .print-container { width: 100% !important; margin: 0 !important; box-shadow: none !important; border: none !important; }
-            table { font-size: 8pt !important; width: 100% !important; border-collapse: collapse !important; }
-            th { background-color: #f1f5f9 !important; color: #0f172a !important; border-bottom: 2px solid #0f172a !important; }
-            td { border-bottom: 0.5px solid #e2e8f0 !important; }
-            .spec-badge { border: 1px solid #e2e8f0 !important; background: transparent !important; }
+            body { background: white !important; padding: 0 !important; color: black !important; }
+            .print-container { 
+                width: 100% !important; 
+                margin: 0 !important; 
+                box-shadow: none !important; 
+                border: 1px solid #eee !important;
+                border-radius: 0 !important;
+            }
+            table { 
+                font-size: 7.5pt !important; 
+                width: 100% !important; 
+                border-collapse: collapse !important; 
+                table-layout: fixed !important;
+            }
+            th { 
+                background-color: #f8fafc !important; 
+                color: #000 !important; 
+                border: 0.5pt solid #ccc !important; 
+                padding: 4pt !important;
+            }
+            td { 
+                border: 0.5pt solid #eee !important; 
+                padding: 3pt !important;
+                vertical-align: top !important;
+            }
+            .compact-mode td {
+                padding: 2pt !important;
+            }
+            .bg-slate-50, .bg-indigo-50\/30, .bg-amber-50\/30, .bg-blue-50\/10 {
+                background-color: transparent !important;
+                border: 0.5pt solid #eee !important;
+            }
+            .rounded-2xl, .rounded-[2.5rem], .rounded-xl {
+                border-radius: 2pt !important;
+            }
+            .shadow-sm, .shadow-lg {
+                box-shadow: none !important;
+            }
+            .text-blue-600, .text-indigo-500, .text-amber-500, .text-emerald-600 {
+                color: black !important;
+            }
         }
     </style>
 <script type="importmap">
@@ -48,10 +87,8 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
 </head>
 <body class="antialiased">
     <div id="root"></div>
-<script type="module" src="/index.tsx"></script>
 </body>
 </html>
