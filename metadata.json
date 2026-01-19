@@ -1,0 +1,5 @@
+{
+  "name": "Sewing Process Matrix Manager",
+  "description": "A professional tool for garment manufacturers to parse multiple Excel/CSV sewing process files, standardize data, and visualize it in a clean, non-redundant matrix format by operation and size.",
+  "requestFramePermissions": []
+}
